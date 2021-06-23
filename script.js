@@ -15,6 +15,7 @@ var ejsCode = `
         <%for(var i=0;i<6;i++){%>
             <div id="<%=opts[i]%>" class="col-4 blocks">
                 <p><%=opts[i]%></p>
+                <div class="colorTitle" id="<%=opts[i]%>Hex"></div>
             </div>
             <div class="col-2"></div>            
         <%}%>
@@ -38,6 +39,8 @@ function setTheme(url){
             p = palette[opt];
             document.getElementById(opt).style.background = "rgba("+p.r+","+p.g+","+p.b+", 0.7)";
             document.getElementById(opt).style.color = p.titleTextColor;
+            document.getElementById(opt+"Hex").innerHTML = p.hex;
+            document.getElementById(opt+"Hex").style.background = p.hex;
         }
     });
     
@@ -61,7 +64,37 @@ function toggleMode(){
     setTheme();
 }
 
-function enterPath(){
-    path = prompt("Enter URL of image");
-    setTheme(path);
+var form = document.getElementById("uploadForm");
+form.addEventListener('submit', enterPath);
+
+function enterPath(e){
+    e.preventDefault();
+    var path = document.getElementById("urlEnter").value;
+    if(path){
+        var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))'+ // ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ //port
+        '(\\?[;&amp;a-z\\d%_.~+=-]*)?'+ // query string
+        '(\\#[-a-z\\d_]*)?$','i');
+        if(pattern.test(path)){
+            setTheme(path);
+        } else enterPath();
+    } else {
+        var localURL = URL.createObjectURL(document.querySelector('input[type=file]')['files'][0]);
+        setTheme(localURL);
+    }
+}
+
+function formManager(){
+    if(document.getElementById("urlEnter").value.length != 0){
+        document.getElementById("fileEnter").disabled = true;
+        document.getElementById("fileEnter").value = null;
+    } else {
+        document.getElementById("fileEnter").disabled = false;
+    }
+}
+
+function formError(err){
+    document.querySelector("#errMsg").innerHTML = err;
 }

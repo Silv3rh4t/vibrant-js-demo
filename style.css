@@ -20,7 +20,7 @@ body{
     color: var(--titleText);
     font-family: 'serif';
 }
-.btn{
+.buttons{
     position: absolute;
     right: 30px;
     top: 30px;
@@ -45,4 +45,10 @@ body{
 }
 p{
     font-size: 2em;
+}
+.colorTitle{
+    border-radius: 10px;
+    padding: 5px;
+    width:30%;
+    font-size:1.2em;
 }

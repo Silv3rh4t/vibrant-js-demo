@@ -3,4 +3,4 @@
 Generate beautiful palettes to use in your theme, based on any background image automatically.
 Made using [Vibrant.js](https://github.com/Vibrant-Colors/node-vibrant "Vibrant.js Git repo")
 
-Still under development.
+Images retrieved from Unsplash

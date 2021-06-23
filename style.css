@@ -1,0 +1,48 @@
+:root{
+    --primary: rgb(100, 100, 100);
+    --titleText: black;
+}
+html{
+    height:100%;
+    width:100%;
+}
+
+body{
+    height:100%;
+    width:100%;
+    padding: 0;
+    margin:0;
+    background: url("img2.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: var(--titleText);
+    font-family: 'serif';
+}
+.btn{
+    position: absolute;
+    right: 30px;
+    top: 30px;
+}
+#app{
+    margin:0px;
+    padding:0;
+    height:100%;
+    width:100%;
+    overflow-x: visible;
+    overflow-y: scroll;
+}
+.main{
+    padding:3%;
+}
+.blocks{
+    height:200px;
+    padding:2%;
+}
+.empty{
+    height: 50px;
+}
+p{
+    font-size: 2em;
+}

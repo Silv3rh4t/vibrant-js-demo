@@ -1,9 +1,4 @@
-let v = new Vibrant("https://source.unsplash.com/random/");
-
 var bodyS = document.getElementsByTagName('body')[0].style;
-bodyS.background = 'url('+v._src+') no-repeat center center fixed';
-bodyS["-webkit-background-size"] = "cover";
-
 var style = document.documentElement.style;
 
 var opts = [
@@ -30,16 +25,28 @@ var ejsCode = `
 
 let html = ejs.render(ejsCode, {opts:opts});
 document.getElementsByTagName('body')[0].innerHTML += html; 
+setTheme("https://source.unsplash.com/random/");
 
-v.getPalette().then((palette) => {
-    for(var i=0;i<6;i++){
-        opt = opts[i];
-        p = palette[opt];
-        console.log(p);
-        document.getElementById(opt).style.background = "rgba("+p.r+","+p.g+","+p.b+", 0.7)";
-        document.getElementById(opt).style.color = p.titleTextColor;
-    }
-});
+var v;
+
+function setTheme(url){
+    v = new Vibrant(url);
+    setBG();
+    v.getPalette().then((palette) => {
+        for(var i=0;i<6;i++){
+            opt = opts[i];
+            p = palette[opt];
+            document.getElementById(opt).style.background = "rgba("+p.r+","+p.g+","+p.b+", 0.7)";
+            document.getElementById(opt).style.color = p.titleTextColor;
+        }
+    });
+    
+}
+
+function setBG(){
+    bodyS.background = 'url('+v._src+') no-repeat center center fixed';
+    bodyS["-webkit-background-size"] = "cover";
+}
 
 function toggleMode(){
     if(presentTheme === themePaletteDark){
@@ -54,6 +61,7 @@ function toggleMode(){
     setTheme();
 }
 
-/*function enterPath(){
+function enterPath(){
     path = prompt("Enter URL of image");
-}*/
+    setTheme(path);
+}

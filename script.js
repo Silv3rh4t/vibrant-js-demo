@@ -98,3 +98,18 @@ function formManager(){
 function formError(err){
     document.querySelector("#errMsg").innerHTML = err;
 }
+
+var nightMode = false;
+
+function nightModeToggle(){
+    var app = document.querySelector("#app");
+    if(nightMode){
+        nightMode = false;
+        app.style.background = "rgba(0,0,0,0)";
+        event.srcElement.innerHTML = "<i class='fa fa-moon-o'></i>";
+    } else {
+        nightMode = true;
+        app.style.background = "rgba(0,0,0,0.5)";
+        event.srcElement.innerHTML = "<i class='fa fa-sun-o'></i>";
+    }
+}

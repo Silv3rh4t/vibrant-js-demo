@@ -1,3 +1,8 @@
+var bgurl = "";
+fetch('https://source.unsplash.com/random/', {method: 'HEAD'}).then(r => {
+    bgurl = r.url;
+});
+
 var bodyS = document.getElementsByTagName('body')[0].style;
 var style = document.documentElement.style;
 
@@ -10,22 +15,17 @@ var opts = [
     "LightMuted"
 ];
 var ejsCode = `
-<div id="app">
-    <div class="main">
-        <%for(var i=0;i<6;i++){%>
-            <div id="<%=opts[i]%>" class="col-4 blocks">
-                <p><%=opts[i]%></p>
-                <div class="colorTitle" id="<%=opts[i]%>Hex"></div>
-            </div>
-            <div class="col-2"></div>            
-        <%}%>
-        </div>
+<%for(var i=0;i<6;i++){%>
+    <div id="<%=opts[i]%>" class="col-5 col-lg-4 blocks">
+        <p><%=opts[i]%></p>
+        <div class="colorTitle" id="<%=opts[i]%>Hex"></div>
     </div>
-</div>
+    <div class="col-2"></div>            
+<%}%>
 `;
 
 let html = ejs.render(ejsCode, {opts:opts});
-document.getElementsByTagName('body')[0].innerHTML += html; 
+document.getElementById('main').innerHTML += html; 
 setTheme("https://source.unsplash.com/random/");
 
 var v;
@@ -71,11 +71,11 @@ function enterPath(e){
     e.preventDefault();
     var path = document.getElementById("urlEnter").value;
     if(path){
-        var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))'+ // ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ //port
-        '(\\?[;&amp;a-z\\d%_.~+=-]*)?'+ // query string
+        var pattern = new RegExp('^(https?:\\/\\/)?'+ 
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ 
+        '((\\d{1,3}\\.){3}\\d{1,3}))'+ 
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ 
+        '(\\?[;&amp;a-z\\d%_.~+=-]*)?'+ 
         '(\\#[-a-z\\d_]*)?$','i');
         if(pattern.test(path)){
             setTheme(path);
